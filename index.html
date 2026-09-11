@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Premium 4K UHD VIP - Thyk.net | Dịch Vụ Mua Tài Khoản Giá Rẻ, Uy Tín Top 1</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans, Inter, Bebas Neue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Pro / Free CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        netflix: {
+                            red: '#E50914',
+                            darkRed: '#B81D24',
+                            hoverRed: '#FF0F1A',
+                            black: '#060609',
+                            cardBg: '#0D0D12',
+                            border: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        gold: {
+                            DEFAULT: '#FFD700',
+                            light: '#FFE57F',
+                            glow: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        bebas: ['Bebas Neue', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee-left': 'marqueeLeft 35s linear infinite',
+                        'marquee-right': 'marqueeRight 35s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1', filter: 'drop-shadow(0 0 15px rgba(229, 9, 20, 0.7))' },
+                            '50%': { opacity: '0.5', filter: 'drop-shadow(0 0 5px rgba(229, 9, 20, 0.2))' }
+                        },
+                        marqueeLeft: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        marqueeRight: {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Modern Clean Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060609;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F1F2A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E50914;
+        }
+
+        /* Movie Wall Background (Top to Bottom Fade) */
+        .movie-wall-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 850px;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.38;
+            transform: skewY(-2deg) translateY(-40px);
+        }
+
+        .movie-wall-fade-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(6, 6, 9, 0.3) 0%,
+                rgba(6, 6, 9, 0.65) 30%,
+                rgba(6, 6, 9, 0.92) 65%,
+                #060609 100%
+            );
+            z-index: 2;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(13, 13, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-card {
+            background: rgba(18, 18, 26, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(229, 9, 20, 0.5);
+            box-shadow: 0 15px 35px -10px rgba(229, 9, 20, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* Interactive Spotlight Cursor Hover Effect */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 9, 20, 0.16), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Gold Spotlight Card Variation */
+        .spotlight-card-gold::before {
+            background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 215, 0, 0.2), transparent 40%);
+        }
+
+        /* Shimmering Animated Button Borders */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.25) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg);
+            animation: shimmer 4s infinite;
+        }
+
+        /* Typography & Paragraph Line Spacing Controls */
+        h1, h2, h3, h4 {
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+        p {
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+        }
+
+        /* Glow Text Helpers */
+        .text-glow-red {
+            text-shadow: 0 0 16px rgba(229, 9, 20, 0.7), 0 0 30px rgba(229, 9, 20, 0.35);
+        }
+        .text-glow-gold {
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.7), 0 0 25px rgba(255, 215, 0, 0.35);
+        }
+
+        /* Modal Smooth Transitions */
+        .modal-enter {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content-enter {
+            transform: scale(0.92) translateY(10px);
+        }
+        .modal-content-active {
+            transform: scale(1) translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-[#060609] text-gray-100 font-sans relative antialiased selection:bg-netflix-red selection:text-white min-h-screen overflow-x-hidden">
+
+    <!-- Interactive Ember Sparks Particles Canvas -->
+    <canvas id="emberCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-10 opacity-70"></canvas>
+
+    <!-- Top-To-Bottom Fade Movie Wall Poster Grid -->
+    <div class="movie-wall-wrapper">
+        <div class="movie-wall-fade-overlay"></div>
+        
+        <!-- Marquee Row 1 (Moving Left) -->
+        <div class="flex gap-4 w-[200%] animate-marquee-left mb-4">
+            <div class="flex gap-4 w-1/2">
+                <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Stranger Things">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Squid Game">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Wednesday">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Demon Slayer">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="All Of Us Are Dead">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Money Heist">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Cyberpunk">
+            </div>
+            <div class="flex gap-4 w-1/2">
+                <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Stranger Things">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Squid Game">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Wednesday">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Demon Slayer">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="All Of Us Are Dead">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Money Heist">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Cyberpunk">
+            </div>
+        </div>
+
+        <!-- Marquee Row 2 (Moving Right) -->
+        <div class="flex gap-4 w-[200%] animate-marquee-right">
+            <div class="flex gap-4 w-1/2">
+                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Anime Hero">
+                <img src="https://images.unsplash.com/photo-1568832359672-e36cf5d74f54?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Sci-Fi Movie">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Abstract Cinema">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Dark Thriller">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Drama Action">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Kingdom">
+            </div>
+            <div class="flex gap-4 w-1/2">
+                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Anime Hero">
+                <img src="https://images.unsplash.com/photo-1568832359672-e36cf5d74f54?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Sci-Fi Movie">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Abstract Cinema">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Dark Thriller">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Drama Action">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" class="w-48 h-72 object-cover rounded-xl shadow-lg" alt="Kingdom">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="relative z-20 flex flex-col min-h-screen">
+
+        <!-- Top Announcement Marquee & Flash Stock Counter -->
+        <div class="bg-gradient-to-r from-netflix-darkRed via-netflix-red to-netflix-darkRed text-white text-xs py-2 px-4 shadow-xl border-b border-netflix-red/30">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div class="flex items-center gap-2 overflow-hidden text-center sm:text-left">
+                    <span class="px-2 py-0.5 rounded bg-black/40 text-gold font-bold text-[10px] uppercase tracking-wider animate-pulse flex-shrink-0">
+                        ⚡ FLASH DEAL 50%
+                    </span>
+                    <p class="truncate font-medium">
+                        Giảm Giá Sốc Hôm Nay: Đăng ký Gói 6 Tháng TẶNG NGAY 1 Tháng + Bảo hành VIP 1-đổi-1!
+                    </p>
+                </div>
+                <div class="flex items-center gap-4 text-[11px] font-semibold flex-shrink-0">
+                    <span class="flex items-center gap-1.5 text-yellow-300">
+                        <i class="fa-solid fa-fire"></i> Chỉ còn: <span id="slotsLeft" class="font-bold text-white bg-black/40 px-1.5 py-0.5 rounded border border-white/20">14/100</span> suất
+                    </span>
+                    <span class="hidden md:inline-block text-gray-200">|</span>
+                    <span class="hidden md:flex items-center gap-1">
+                        <i class="fa-solid fa-bolt text-green-400"></i> Kích hoạt VietQR 30 Giây
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="sticky top-0 z-40 glass-panel border-b border-white/10 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                
+                <!-- Logo: Thyk.net | Netflix VIP -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-netflix-red via-red-600 to-netflix-darkRed flex items-center justify-center text-white font-bebas text-2xl shadow-lg shadow-netflix-red/40 group-hover:scale-105 transition-transform duration-300 border border-white/20">
+                        T
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-2">
+                            <span class="font-extrabold text-lg sm:text-xl text-white tracking-tight">THYK<span class="text-netflix-red">.NET</span></span>
+                            <span class="px-2 py-0.5 rounded-full bg-netflix-red/20 text-netflix-red text-[10px] font-extrabold border border-netflix-red/40 uppercase">VIP</span>
+                        </div>
+                        <span class="text-[10px] text-gray-400 tracking-wider font-medium">Hệ Thống Netflix Premium 4K</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-300">
+                    <a href="#hero" class="hover:text-netflix-red transition-colors duration-200 py-1">Trang Chủ</a>
+                    <a href="#pricing" class="hover:text-netflix-red transition-colors duration-200 py-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-tags text-xs text-netflix-red"></i> Bảng Giá VIP
+                    </a>
+                    <a href="#catalog" class="hover:text-netflix-red transition-colors duration-200 py-1">Kho Phim Hot</a>
+                    <a href="#features" class="hover:text-netflix-red transition-colors duration-200 py-1">Đặc Quyền</a>
+                    <a href="#faq" class="hover:text-netflix-red transition-colors duration-200 py-1">Hỏi Đáp</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-3">
+                    <!-- Config Gear Button (Opens Admin Settings) -->
+                    <button id="openConfigBtn" title="Cấu hình hệ thống VietQR" class="w-10 h-10 rounded-xl glass-panel hover:bg-white/10 border border-white/15 flex items-center justify-center text-gray-300 hover:text-netflix-red transition-all duration-200 hover:rotate-45">
+                        <i class="fa-solid fa-gear text-base"></i>
+                    </button>
+
+                    <!-- Zalo Support Link -->
+                    <a id="navZaloBtn" href="https://zalo.me" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-400 hover:bg-blue-600 hover:text-white transition-all duration-300 text-xs font-semibold">
+                        <i class="fa-solid fa-comment-dots"></i> Zalo Support
+                    </a>
+
+                    <!-- Fast Buy Action -->
+                    <a href="#pricing" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-netflix-red to-netflix-darkRed hover:from-red-600 hover:to-netflix-red text-white font-bold text-xs sm:text-sm shadow-lg shadow-netflix-red/30 hover:shadow-netflix-red/60 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 btn-shimmer">
+                        <i class="fa-solid fa-bolt"></i> MUA NGAY
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- Left Hero Text Content -->
+                    <div class="lg:col-span-7 text-center lg:text-left">
+                        
+                        <!-- Trust Badges -->
+                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-panel border border-netflix-red/30 mb-8 shadow-xl">
+                            <span class="flex items-center gap-1 text-gold text-xs font-bold">
+                                <i class="fa-solid fa-star"></i> 4.9/5
+                            </span>
+                            <span class="text-gray-500">|</span>
+                            <span class="text-xs font-semibold text-gray-200">
+                                🔥 <strong class="text-white">12.500+</strong> Khách Hàng Tin Dùng Tại <span class="text-netflix-red font-bold">Thyk.net</span>
+                            </span>
+                        </div>
+
+                        <!-- Main Heading -->
+                        <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold text-white leading-[1.15] mb-6">
+                            Thưởng Thức Điện Ảnh <span class="text-transparent bg-clip-text bg-gradient-to-r from-netflix-red via-red-500 to-yellow-500 text-glow-red">4K HDR</span> Không Giới Hạn
+                        </h1>
+
+                        <!-- Spacious Subtitle -->
+                        <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-[1.75]">
+                            Trải nghiệm không gian rạp phim tại nhà với chất lượng Ultra HD 4K sắc nét gấp 4 lần, âm thanh chuẩn Dolby Atmos sống động. 
+                            Cấp Profile cá nhân riêng biệt, cài đặt Mã PIN bảo mật 100%, bảo hành uy tín 1-đổi-1 trọn gói cước.
+                        </p>
+
+                        <!-- CTA Actions -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+                            <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-netflix-red via-red-600 to-netflix-darkRed hover:from-red-600 hover:to-red-700 text-white font-extrabold text-base shadow-2xl shadow-netflix-red/50 hover:shadow-netflix-red/80 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 group btn-shimmer">
+                                <i class="fa-solid fa-play text-lg group-hover:scale-125 transition-transform duration-300"></i>
+                                ĐĂNG KÍ ƯU ĐÃI VIP
+                            </a>
+                            <a href="#catalog" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel hover:bg-white/10 text-white font-semibold text-base border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-film text-netflix-red"></i> Xem Kho Phim Hot
+                            </a>
+                        </div>
+
+                        <!-- Key Value Props -->
+                        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
+                            <div>
+                                <p class="font-bebas text-3xl sm:text-4xl text-white tracking-wider">4K Ultra HD</p>
+                                <p class="text-xs text-gray-400 font-medium mt-1">Độ Nét Cao Nhất</p>
+                            </div>
+                            <div>
+                                <p class="font-bebas text-3xl sm:text-4xl text-netflix-red tracking-wider">1 ĐỔI 1</p>
+                                <p class="text-xs text-gray-400 font-medium mt-1">Bảo Hành Trọn Gói</p>
+                            </div>
+                            <div>
+                                <p class="font-bebas text-3xl sm:text-4xl text-gold tracking-wider">30 GIÂY</p>
+                                <p class="text-xs text-gray-400 font-medium mt-1">Kích Hoạt VietQR</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Hero Visual Card & Timer -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-card spotlight-card rounded-3xl p-6 sm:p-8 relative border border-netflix-red/40 shadow-2xl">
+                            
+                            <!-- Top Right Ribbon -->
+                            <div class="absolute top-0 right-0 bg-gradient-to-l from-gold to-yellow-600 text-black font-extrabold text-[11px] uppercase tracking-wider px-4 py-1.5 rounded-bl-2xl shadow-md flex items-center gap-1.5">
+                                <i class="fa-solid fa-crown text-xs"></i> Ưu Đãi VIP Hôm Nay
+                            </div>
+
+                            <!-- Header -->
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-2xl bg-netflix-red/20 border border-netflix-red/40 flex items-center justify-center text-netflix-red text-2xl flex-shrink-0">
+                                    <i class="fa-solid fa-bolt-lightning"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">FLASH SALE GIỚI HẠN</h3>
+                                    <p class="text-xs text-gray-400 mt-0.5">Khuyến mãi sẽ hết hạn sau:</p>
+                                </div>
+                            </div>
+
+                            <!-- Live Countdown Display -->
+                            <div id="flashDealTimer" class="grid grid-cols-3 gap-3 text-center mb-8">
+                                <div class="glass-panel p-3.5 rounded-2xl border border-white/10">
+                                    <span id="timerHours" class="font-bebas text-3xl sm:text-4xl text-netflix-red block leading-none">04</span>
+                                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 block">Giờ</span>
+                                </div>
+                                <div class="glass-panel p-3.5 rounded-2xl border border-white/10">
+                                    <span id="timerMinutes" class="font-bebas text-3xl sm:text-4xl text-white block leading-none">38</span>
+                                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 block">Phút</span>
+                                </div>
+                                <div class="glass-panel p-3.5 rounded-2xl border border-white/10">
+                                    <span id="timerSeconds" class="font-bebas text-3xl sm:text-4xl text-gold block leading-none">25</span>
+                                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1 block">Giây</span>
+                                </div>
+                            </div>
+
+                            <!-- Feature Bullet Points -->
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-start gap-3 text-sm text-gray-200">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-base mt-0.5"></i>
+                                    <span>Đăng ký gói 6 Tháng: <strong class="text-gold">TẶNG NGAY 1 THÁNG</strong> sử dụng.</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-sm text-gray-200">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-base mt-0.5"></i>
+                                    <span>Độ phân giải 4K Ultra HD + Vietsub & Thuyết minh chuẩn.</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-sm text-gray-200">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-base mt-0.5"></i>
+                                    <span>Đặt Mã PIN bảo mật cá nhân cho Profile riêng.</span>
+                                </div>
+                                <div class="flex items-start gap-3 text-sm text-gray-200">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-base mt-0.5"></i>
+                                    <span>Thanh toán VietQR tự động cấp tài khoản siêu tốc.</span>
+                                </div>
+                            </div>
+
+                            <!-- Quick Order CTA -->
+                            <button onclick="scrollToPricing()" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold via-yellow-500 to-amber-600 hover:from-amber-500 hover:to-gold text-black font-extrabold text-sm uppercase tracking-wider shadow-xl shadow-gold/20 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-fire text-black"></i> SĂN MÃ GIẢM GIÁ 50% NGAY
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+      <!-- Pricing Plans Section -->
+        <section id="pricing" class="py-20 md:py-32 relative z-20 bg-black/80 overflow-hidden">
+            
+            <!-- Ambient Lighting Background -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-netflix-red font-extrabold text-xs tracking-widest uppercase mb-3 block">BẢNG GIÁ DỊCH VỤ THYK.NET</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4">
+                        CHỌN GÓI CƯỚC NETFLIX VIP
+                    </h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                        Tiết kiệm đến 80% so với mua trực tiếp. Tốc độ ổn định, đầy đủ quyền lợi Premium 4K, hỗ trợ mã PIN bảo mật 100%.
+                    </p>
+                </div>
+
+                <!-- Pricing Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                    
+                    <!-- PLAN 1: 1 Tháng (Xanh Lam) -->
+                    <div class="glass-card spotlight-card rounded-3xl p-6 flex flex-col justify-between relative group border border-indigo-500/30 bg-gradient-to-b from-indigo-950/20 via-black/60 to-black/90 backdrop-blur-xl hover:border-indigo-500/60 hover:-translate-y-2 transition-all duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-[11px] font-bold">Trải Nghiệm</span>
+                                <span class="text-[11px] text-gray-400">1 Thiết bị / Profile</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white mb-2 tracking-wide">1 THÁNG</h3>
+                            <p class="text-xs text-gray-400 mb-6 leading-relaxed min-h-[36px]">Dành cho khách hàng muốn trải nghiệm dùng thử dịch vụ.</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <div class="flex items-baseline gap-1">
+                                    <span id="priceDisplay1" class="text-4xl font-black text-white">45.000</span>
+                                    <span class="text-sm text-indigo-400 font-bold">đ</span>
+                                </div>
+                                <span class="text-[11px] text-gray-500 line-through mt-1 block">Giá gốc 90.000đ</span>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-gray-300 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-indigo-400 text-sm"></i>
+                                    <span>Chất lượng <strong>4K Ultra HD + HDR</strong></span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-indigo-400 text-sm"></i>
+                                    <span>Đăng nhập TV, Phone, PC, iPad</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-indigo-400 text-sm"></i>
+                                    <span>Profile riêng + Cài PIN bảo mật</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-indigo-400 text-sm"></i>
+                                    <span>Bảo hành 1 đổi 1 trọn 30 ngày</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Nút bấm chỉ đổi màu khi rê / nhấp chuột -->
+                        <button onclick="openPaymentModal('1 Tháng', getPlanPrice(1, 45000), 'Gói Dùng Thử 1 Tháng')" class="w-full py-3.5 rounded-xl bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-indigo-600 hover:border-indigo-500 active:bg-indigo-700 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-500/30">
+                            <i class="fa-solid fa-bolt text-xs"></i> MUA NGAY
+                        </button>
+                    </div>
+
+                    <!-- PLAN 2: 3 Tháng (BÁN CHẠY - ĐỎ NETFLIX) -->
+                    <div class="glass-card spotlight-card rounded-3xl p-6 flex flex-col justify-between relative group border-2 border-netflix-red bg-gradient-to-b from-netflix-red/20 via-black/70 to-black/95 backdrop-blur-xl shadow-[0_0_30px_rgba(229,9,20,0.3)] hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(229,9,20,0.5)] transition-all duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-netflix-red text-white text-[11px] font-black flex items-center gap-1 shadow-sm shadow-netflix-red/50 animate-pulse">
+                                    <i class="fa-solid fa-fire"></i> Bán chạy
+                                </span>
+                                <span class="text-[11px] text-gray-300 font-medium">1 Thiết bị / Profile</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white mb-2 tracking-wide">3 THÁNG</h3>
+                            <p class="text-xs text-gray-300 mb-6 leading-relaxed min-h-[36px]">Lựa chọn phổ biến & tối ưu chi phí cho các tín đồ xem phim dài tập.</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-netflix-red/30">
+                                <div class="flex items-baseline gap-1">
+                                    <span id="priceDisplay3" class="text-4xl font-black text-white">120.000</span>
+                                    <span class="text-base text-netflix-red font-bold">đ</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <span class="text-[11px] text-gray-400 line-through">Giá gốc 270.000đ</span>
+                                    <span class="px-2 py-0.5 rounded bg-netflix-red/30 border border-netflix-red/50 text-netflix-red text-[10px] font-bold">Chỉ ~40k/tháng</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-gray-200 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-sm"></i>
+                                    <span>Chất lượng <strong>4K Ultra HD + HDR</strong></span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-sm"></i>
+                                    <span>Đăng nhập TV, Phone, PC, iPad</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-sm"></i>
+                                    <span>Profile riêng + Cài PIN bảo mật</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-netflix-red text-sm"></i>
+                                    <span>Bảo hành 1 đổi 1 trọn 90 ngày</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Nút bấm chỉ đỏ khi nhấp/rê chuột -->
+                        <button onclick="openPaymentModal('3 Tháng', getPlanPrice(3, 120000), 'Gói 3 Tháng')" class="w-full py-3.5 rounded-xl bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-netflix-red hover:border-netflix-red active:bg-red-700 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-netflix-red/50">
+                            <i class="fa-solid fa-bolt text-xs"></i> MUA NGAY
+                        </button>
+                    </div>
+
+                    <!-- PLAN 3: 6 Tháng (VÀNG ÁNH KIM) -->
+                    <div class="glass-card spotlight-card rounded-3xl p-6 flex flex-col justify-between relative group border-2 border-amber-500/70 bg-gradient-to-b from-amber-500/20 via-black/70 to-black/95 backdrop-blur-xl shadow-[0_0_25px_rgba(245,158,11,0.25)] hover:-translate-y-2 hover:shadow-[0_0_35px_rgba(245,158,11,0.4)] transition-all duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-400 text-[11px] font-extrabold flex items-center gap-1">
+                                    <i class="fa-solid fa-bolt"></i> Siêu Tiết Kiệm
+                                </span>
+                                <span class="text-[11px] text-gray-300 font-medium">1 Thiết bị / Profile</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-amber-400 mb-2 tracking-wide">6 THÁNG + 1 THÁNG</h3>
+                            <p class="text-xs text-gray-300 mb-6 leading-relaxed min-h-[36px]">Thanh toán 6 tháng - trải nghiệm trọn vẹn 7 Tháng sử dụng.</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-amber-500/30">
+                                <div class="flex items-baseline gap-1">
+                                    <span id="priceDisplay6" class="text-4xl font-black text-white">220.000</span>
+                                    <span class="text-base text-amber-400 font-bold">đ</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <span class="text-[11px] text-gray-400 line-through">Giá gốc 540.000đ</span>
+                                    <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-bold">Chỉ ~31k/tháng</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-gray-200 mb-8">
+                                <li class="flex items-center gap-2.5 text-amber-300 font-bold">
+                                    <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+                                    <span>TẶNG NGAY 1 THÁNG BẢO HÀNH</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-amber-400 text-sm"></i>
+                                    <span>Chất lượng <strong>4K Ultra HD + HDR</strong></span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-amber-400 text-sm"></i>
+                                    <span>Profile riêng + Cài PIN bảo mật</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-amber-400 text-sm"></i>
+                                    <span>Bảo hành 1 đổi 1 VIP 210 ngày</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Nút bấm chỉ hiện màu vàng kim khi nhấp/rê chuột -->
+                        <button onclick="openPaymentModal('6 Tháng (Tặng 1T)', getPlanPrice(6, 220000), 'Gói 6 Tháng + 1T')" class="w-full py-3.5 rounded-xl bg-white/10 border border-white/10 text-white font-extrabold text-xs uppercase tracking-wider hover:bg-gradient-to-r hover:from-amber-500 hover:to-amber-600 hover:text-black hover:border-amber-400 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-amber-500/40">
+                            <i class="fa-solid fa-crown text-xs"></i> MUA NGAY (GÓI VIP 6+1)
+                        </button>
+                    </div>
+
+                    <!-- PLAN 4: 12 Tháng (TÍM VIP) -->
+                    <div class="glass-card spotlight-card rounded-3xl p-6 flex flex-col justify-between relative group border border-purple-500/30 bg-gradient-to-b from-purple-950/20 via-black/60 to-black/90 backdrop-blur-xl hover:border-purple-500/60 hover:-translate-y-2 transition-all duration-300">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[11px] font-bold">Tiết Kiệm Nhất</span>
+                                <span class="text-[11px] text-gray-400">1 Thiết bị / Profile</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-white mb-2 tracking-wide">12 THÁNG</h3>
+                            <p class="text-xs text-gray-400 mb-6 leading-relaxed min-h-[36px]">Trọn gói 1 năm an tâm giải trí, không lo gia hạn đứt quãng.</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <div class="flex items-baseline gap-1">
+                                    <span id="priceDisplay12" class="text-4xl font-black text-white">390.000</span>
+                                    <span class="text-sm text-purple-400 font-bold">đ</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <span class="text-[11px] text-gray-500 line-through">Giá gốc 1.080.000đ</span>
+                                    <span class="px-2 py-0.5 rounded bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[10px] font-bold">Chỉ ~32k/tháng</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3.5 text-xs text-gray-300 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
+                                    <span>Chất lượng <strong>4K Ultra HD + HDR</strong></span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
+                                    <span>Đăng nhập TV, Phone, PC, iPad</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
+                                    <span>Profile riêng + Cài PIN bảo mật</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-circle-check text-purple-400 text-sm"></i>
+                                    <span>Bảo hành 1 đổi 1 trọn gói 365 ngày</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Nút bấm chỉ tím khi nhấp/rê chuột -->
+                        <button onclick="openPaymentModal('12 Tháng', getPlanPrice(12, 390000), 'Gói VIP 12 Tháng')" class="w-full py-3.5 rounded-xl bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-purple-600 hover:border-purple-500 active:bg-purple-700 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/30">
+                            <i class="fa-solid fa-bolt text-xs"></i> MUA NGAY
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Movie Showcase & Filterable Catalog -->
+        <section id="catalog" class="py-20 md:py-28 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Catalog Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="text-netflix-red font-extrabold text-xs tracking-widest uppercase mb-2 block">KHO PHIM HOT NETFLIX</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">BOM TẤN ĐANG THỊNH HÀNH</h2>
+                    </div>
+
+                    <!-- Search and Category Filters -->
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <!-- Search Bar -->
+                        <div class="relative w-full sm:w-64">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="text" id="movieSearch" onkeyup="filterMovies()" placeholder="Tìm tên phim..." class="w-full pl-9 pr-4 py-2.5 rounded-xl glass-panel border border-white/15 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-netflix-red transition-all">
+                        </div>
+
+                        <!-- Filter Category Buttons -->
+                        <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+                            <button onclick="filterCategory('all', this)" class="movie-tab px-4 py-2 rounded-xl text-xs font-bold bg-netflix-red text-white whitespace-nowrap transition-all">Tất Cả</button>
+                            <button onclick="filterCategory('action', this)" class="movie-tab px-4 py-2 rounded-xl text-xs font-bold glass-panel text-gray-300 hover:text-white whitespace-nowrap transition-all">Hành Động</button>
+                            <button onclick="filterCategory('scifi', this)" class="movie-tab px-4 py-2 rounded-xl text-xs font-bold glass-panel text-gray-300 hover:text-white whitespace-nowrap transition-all">Viễn Tưởng</button>
+                            <button onclick="filterCategory('kdrama', this)" class="movie-tab px-4 py-2 rounded-xl text-xs font-bold glass-panel text-gray-300 hover:text-white whitespace-nowrap transition-all">K-Drama</button>
+                            <button onclick="filterCategory('anime', this)" class="movie-tab px-4 py-2 rounded-xl text-xs font-bold glass-panel text-gray-300 hover:text-white whitespace-nowrap transition-all">Anime</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movies Grid -->
+                <div id="movieGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+                    
+                    <!-- Movie 1 -->
+                    <div onclick="openMoviePreview('Stranger Things S4', 'scifi', '9.8', 'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=800&auto=format&fit=crop', 'Khi một cậu bé biến mất, một thị trấn nhỏ phát hiện ra một bí ẩn liên quan đến các thí nghiệm bí mật, lực lượng siêu nhiên đáng sợ và một cô gái nhỏ kỳ lạ.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="scifi" data-title="stranger things viễn tưởng kỳ bí">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Stranger Things">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.8
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">Stranger Things</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Viễn Tưởng / Kỳ Bí</p>
+                        </div>
+                    </div>
+
+                    <!-- Movie 2 -->
+                    <div onclick="openMoviePreview('Squid Game S2', 'kdrama', '9.6', 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop', 'Hàng trăm người chơi khao khát tiền bạc chấp nhận một lời mời kỳ lạ để thi đấu trong các trò chơi trẻ em. Một giải thưởng hấp dẫn đang chờ đợi nhưng với mức cược chết người.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="kdrama" data-title="squid game trò chơi con mực k-drama">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Squid Game">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.6
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">Squid Game S2</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Sinh Tồn / K-Drama</p>
+                        </div>
+                    </div>
+
+                    <!-- Movie 3 -->
+                    <div onclick="openMoviePreview('Wednesday', 'scifi', '9.5', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop', 'Theo chân Wednesday Addams trong những năm tháng cô là học sinh tại Học viện Nevermore, nơi cô cố gắng làm chủ khả năng ngoại cảm đang phát triển của mình.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="scifi" data-title="wednesday addams kinh dị trinh thám">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Wednesday">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.5
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">Wednesday</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Trinh Thám / Bí Ẩn</p>
+                        </div>
+                    </div>
+
+                    <!-- Movie 4 -->
+                    <div onclick="openMoviePreview('Demon Slayer', 'anime', '9.9', 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=800&auto=format&fit=crop', 'Tanjiro Kamado chiến đấu chống lại loài quỷ dữ để cứu em gái Nezuko và trả thù cho gia đình bị thảm sát.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="anime" data-title="demon slayer thanh gươm diệt quỷ anime">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Demon Slayer">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.9
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">Demon Slayer</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Anime / Hành Động</p>
+                        </div>
+                    </div>
+
+                    <!-- Movie 5 -->
+                    <div onclick="openMoviePreview('All Of Us Are Dead', 'kdrama', '9.4', 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop', 'Một trường trung học trở thành điểm nóng cho một vụ bùng phát virus zombie. Các học sinh bị mắc kẹt phải chiến đấu để thoát ra hoặc biến thành kẻ nhiễm bệnh.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="kdrama" data-title="all of us are dead zombie trường học k-drama">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="All Of Us Are Dead">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.4
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">All Of Us Are Dead</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Zombie / K-Drama</p>
+                        </div>
+                    </div>
+
+                    <!-- Movie 6 -->
+                    <div onclick="openMoviePreview('Money Heist', 'action', '9.7', 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=800&auto=format&fit=crop', 'Một nhóm tội phạm kỳ dị do Giáo Sư lãnh đạo thực hiện vụ cướp tham vọng nhất trong lịch sử tại Xưởng in tiền Hoàng gia Tây Ban Nha.')" class="movie-item spotlight-card rounded-2xl glass-card overflow-hidden group cursor-pointer transition-all duration-300" data-category="action" data-title="money heist phi vụ triệu đô hành động">
+                        <div class="relative aspect-[2/3] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Money Heist">
+                            <div class="absolute top-2 left-2 bg-netflix-red text-white font-extrabold text-[9px] px-2 py-0.5 rounded shadow">4K Ultra HD</div>
+                            <div class="absolute top-2 right-2 bg-black/80 text-gold font-bold text-[10px] px-2 py-0.5 rounded flex items-center gap-1 border border-gold/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> 9.7
+                            </div>
+                        </div>
+                        <div class="p-3.5">
+                            <h4 class="font-bold text-xs text-white truncate group-hover:text-netflix-red transition-colors">Money Heist</h4>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Hành Động / Tội Phạm</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VIP Advantages & Features Section -->
+        <section id="features" class="py-20 md:py-28 relative z-20 bg-black/40 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-netflix-red font-extrabold text-xs tracking-widest uppercase mb-3 block">ĐẶC QUYỀN VƯỢT TRỘI</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">TẠI SAO CHỌN THYK.NET?</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="glass-card spotlight-card p-8 rounded-3xl border border-white/10 hover:border-netflix-red/40 transition-all">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-netflix-red to-netflix-darkRed flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-netflix-red/30">
+                            <i class="fa-solid fa-tv"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Chất Lượng Ultra HD 4K</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Thưởng thức phim độ phân giải chuẩn 2160p nét gấp 4 lần Full HD, hỗ trợ công nghệ hình ảnh HDR10 & âm thanh chuẩn Dolby Atmos sống động.
+                        </p>
+                    </div>
+
+                    <div class="glass-card spotlight-card p-8 rounded-3xl border border-white/10 hover:border-netflix-red/40 transition-all">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-netflix-red to-netflix-darkRed flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-netflix-red/30">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Profile Riêng & Mã PIN</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Cấp 1 Profile hoàn toàn độc lập, tự do cài đặt Mã PIN bảo mật cá nhân, giữ trọn lịch sử xem và danh sách phim yêu thích riêng tư 100%.
+                        </p>
+                    </div>
+
+                    <div class="glass-card spotlight-card p-8 rounded-3xl border border-white/10 hover:border-netflix-red/40 transition-all">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-netflix-red to-netflix-darkRed flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-netflix-red/30">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Bảo Hành 1-Đổi-1 Trọn Đời</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Cam kết đồng hành trọn thời gian gói đăng ký. Hỗ trợ kỹ thuật 24/7 qua Zalo/Telegram, xử lý nhanh chóng hoặc đổi tài khoản mới trong 5-10 phút.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 md:py-28 relative z-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-16">
+                    <span class="text-netflix-red font-extrabold text-xs tracking-widest uppercase mb-3 block">GIẢI ĐÁP THẮC MẮC</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">CÂU HỎI THƯỜNG GẶP</h2>
+                </div>
+
+                <div class="space-y-4">
+                    
+                    <div class="glass-card rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-base focus:outline-none">
+                            <span>Tài khoản Netflix Premium tại Thyk.net được sử dụng thế nào?</span>
+                            <i class="fa-solid fa-chevron-down text-netflix-red transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 px-5 text-sm text-gray-400 leading-relaxed">
+                            <p class="py-4 border-t border-white/5">
+                                Sau khi chuyển khoản qua VietQR, hệ thống sẽ tự động cấp thông tin Email, Mật khẩu và Tên Profile riêng của bạn. Bạn chỉ cần mở ứng dụng Netflix trên TV, Phone hay PC, đăng nhập và vào đúng Profile của mình để thưởng thức.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-base focus:outline-none">
+                            <span>Chính sách bảo hành và cam kết chất lượng ra sao?</span>
+                            <i class="fa-solid fa-chevron-down text-netflix-red transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 px-5 text-sm text-gray-400 leading-relaxed">
+                            <p class="py-4 border-t border-white/5">
+                                Thyk.net cam kết bảo hành 1-đổi-1 trọn gói cước bạn mua (30 ngày, 90 ngày, 180 ngày hay 365 ngày). Nếu gặp bất kỳ gián đoạn nào, đội ngũ kỹ thuật sẽ hỗ trợ xử lý hoặc cấp tài khoản mới thay thế ngay lập tức.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl border border-white/10 overflow-hidden">
+                        <button onclick="toggleAccordion(this)" class="w-full p-5 text-left flex justify-between items-center text-white font-semibold text-base focus:outline-none">
+                            <span>Tôi có thể xem trên Smart TV và đặt mã PIN cá nhân không?</span>
+                            <i class="fa-solid fa-chevron-down text-netflix-red transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 px-5 text-sm text-gray-400 leading-relaxed">
+                            <p class="py-4 border-t border-white/5">
+                                Hoàn toàn được! Tài khoản hoạt động mượt mà trên tất cả Smart TV, Android Box, iPad, Phone, Laptop. Bạn có thể tự cài đặt Mã PIN 4 chữ số cho Profile riêng của mình để bảo mật danh sách phim cá nhân.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto bg-[#040406] border-t border-white/10 text-gray-400 py-12 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    
+                    <div class="md:col-span-2">
+                        <a href="#" class="flex items-center gap-3 mb-4">
+                            <div class="w-9 h-9 rounded-xl bg-netflix-red flex items-center justify-center text-white font-bebas text-2xl font-bold">
+                                T
+                            </div>
+                            <span class="font-extrabold text-xl text-white">THYK<span class="text-netflix-red">.NET</span></span>
+                        </a>
+                        <p class="text-xs text-gray-400 max-w-sm mb-4 leading-relaxed">
+                            Dịch vụ tài khoản Netflix Premium 4K UHD hàng đầu Việt Nam. Chất lượng ổn định, bảo hành 1:1 trọn đời dịch vụ, kích hoạt tự động VietQR trong 30s.
+                        </p>
+                        <p class="text-xs text-gray-500">© 2026 THYK.NET. Tất cả quyền được bảo lưu.</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Liên Kết Nhanh</h4>
+                        <ul class="space-y-2 text-xs">
+                            <li><a href="#hero" class="hover:text-netflix-red transition-colors">Trang Chủ</a></li>
+                            <li><a href="#pricing" class="hover:text-netflix-red transition-colors">Bảng Giá Cước</a></li>
+                            <li><a href="#catalog" class="hover:text-netflix-red transition-colors">Kho Phim Bom Tấn</a></li>
+                            <li><a href="#faq" class="hover:text-netflix-red transition-colors">Hỏi Đáp Thường Gặp</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Hỗ Trợ Khách Hàng</h4>
+                        <ul class="space-y-2.5 text-xs">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-netflix-red"></i> 08:00 - 23:30 Hàng Ngày</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-netflix-red"></i> Hệ Thống Kích Hoạt 24/7</li>
+                            <li class="pt-2 flex gap-3">
+                                <a id="footerZalo" href="https://zalo.me" target="_blank" class="w-9 h-9 rounded-xl glass-panel hover:bg-blue-600 flex items-center justify-center text-white transition-all"><i class="fa-solid fa-comment-dots"></i></a>
+                                <a id="footerTele" href="https://t.me" target="_blank" class="w-9 h-9 rounded-xl glass-panel hover:bg-sky-500 flex items-center justify-center text-white transition-all"><i class="fa-paper-plane"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- VietQR Automated Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="glass-card spotlight-card max-w-md w-full rounded-3xl border border-netflix-red/40 p-6 sm:p-7 relative transition-all duration-300 modal-content-enter max-h-[92vh] overflow-y-auto">
+            
+            <!-- Close Button -->
+            <button onclick="closePaymentModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full glass-panel border border-white/20 flex items-center justify-center text-gray-400 hover:text-white hover:bg-netflix-red transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-netflix-red/20 text-netflix-red text-[11px] font-extrabold mb-2">
+                    <i class="fa-solid fa-qrcode"></i> THANH TOÁN VIETQR TỰ ĐỘNG
+                </div>
+                <h3 class="text-2xl font-extrabold text-white">XÁC NHẬN ĐƠN HÀNG</h3>
+                <p id="modalPackageName" class="text-xs text-gold font-bold mt-1">Gói 6 Tháng - 220.000đ</p>
+            </div>
+
+            <!-- Customer Phone Input -->
+            <div class="mb-5">
+                <label class="block text-xs font-semibold text-gray-300 mb-1.5">Số Điện Thoại Zalo Nhận Tài Khoản:</label>
+                <input type="text" id="custPhone" placeholder="Nhập số điện thoại Zalo của bạn..." class="w-full px-4 py-2.5 rounded-xl glass-panel border border-white/15 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-netflix-red transition-all">
+            </div>
+
+            <!-- VietQR Image Container -->
+            <div class="glass-panel p-4 rounded-2xl border border-white/10 text-center mb-5">
+                <div class="relative w-44 h-44 mx-auto bg-white p-2 rounded-2xl mb-3 shadow-2xl flex items-center justify-center">
+                    <img id="vietQrImg" src="" alt="Mã VietQR" class="w-full h-full object-contain">
+                </div>
+
+                <!-- 10 Minute Payment Countdown Timer -->
+                <div class="flex items-center justify-between text-[11px] bg-black/40 px-3 py-1.5 rounded-lg border border-white/5 mb-3">
+                    <span class="text-gray-400">Mã QR hết hạn sau:</span>
+                    <span id="qrTimer" class="font-mono font-bold text-netflix-red">10:00</span>
+                </div>
+
+                <!-- Transfer Breakdown -->
+                <div class="space-y-2 text-left bg-black/50 p-3 rounded-xl border border-white/5 text-xs">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Ngân Hàng:</span>
+                        <span id="qrBankName" class="font-bold text-white">MB BANK</span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Số Tài Khoản:</span>
+                        <div class="flex items-center gap-1.5">
+                            <span id="qrAccNo" class="font-mono font-bold text-gold">0876773180</span>
+                            <button onclick="copyText('qrAccNo')" class="text-netflix-red hover:underline text-[10px]"><i class="fa-regular fa-copy"></i> Sao chép</button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Chủ Tài Khoản:</span>
+                        <span id="qrAccName" class="font-bold text-white uppercase">HOANG NGUYEN KA THY</span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400">Số Tiền:</span>
+                        <div class="flex items-center gap-1.5">
+                            <span id="qrAmount" class="font-bold text-netflix-red">220.000đ</span>
+                            <button onclick="copyText('qrAmountRaw')" class="text-netflix-red hover:underline text-[10px]"><i class="fa-regular fa-copy"></i> Sao chép</button>
+                            <span id="qrAmountRaw" class="hidden">220000</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2 border-t border-white/10">
+                        <span class="text-gray-400">Nội Dung CK:</span>
+                        <div class="flex items-center gap-1.5">
+                            <span id="qrMemo" class="font-mono font-bold text-green-400 bg-green-950/60 px-2 py-0.5 rounded border border-green-500/30">NFLX 6T 0876773180</span>
+                            <button onclick="copyText('qrMemo')" class="text-netflix-red hover:underline text-[10px]"><i class="fa-regular fa-copy"></i> Sao chép</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirm Action -->
+            <button onclick="confirmPaymentAction()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-netflix-red to-netflix-darkRed hover:from-red-600 hover:to-netflix-red text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-netflix-red/30 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-check-circle text-base"></i> ĐÃ CHUYỂN KHOẢN (XÁC NHẬN)
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin System Config Modal -->
+    <div id="configModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="glass-card spotlight-card max-w-md w-full rounded-3xl border border-gold/40 p-6 relative transition-all duration-300 modal-content-enter max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeConfigModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full glass-panel border border-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xl">
+                    <i class="fa-solid fa-gear"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">CẤU HÌNH HỆ THỐNG THYK.NET</h3>
+                    <p class="text-xs text-gray-400">Điều chỉnh ngân hàng & bảng giá gói cước</p>
+                </div>
+            </div>
+
+            <form id="configForm" onsubmit="saveConfig(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">Mã Ngân Hàng VietQR (MB, VCB, TCB, VPB...):</label>
+                    <input type="text" id="cfgBankId" value="MB" class="w-full px-3 py-2 rounded-xl glass-panel border border-white/15 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Số Tài Khoản Nhận:</label>
+                    <input type="text" id="cfgAccNo" value="0876773180" class="w-full px-3 py-2 rounded-xl glass-panel border border-white/15 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Tên Chủ Tài Khoản:</label>
+                    <input type="text" id="cfgAccName" value="HOANG NGUYEN KA THY" class="w-full px-3 py-2 rounded-xl glass-panel border border-white/15 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <!-- Custom Price Overrides -->
+                <div class="pt-2 border-t border-white/10">
+                    <span class="block font-bold text-gold mb-2">Tùy Chỉnh Giá Gói Cước (VNĐ):</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[11px] text-gray-400">Gói 1 Tháng:</label>
+                            <input type="number" id="cfgPrice1" value="45000" class="w-full px-2.5 py-1.5 rounded-lg glass-panel border border-white/15 text-white">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-gray-400">Gói 3 Tháng:</label>
+                            <input type="number" id="cfgPrice3" value="120000" class="w-full px-2.5 py-1.5 rounded-lg glass-panel border border-white/15 text-white">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-gray-400">Gói 6 Tháng (+1T):</label>
+                            <input type="number" id="cfgPrice6" value="220000" class="w-full px-2.5 py-1.5 rounded-lg glass-panel border border-white/15 text-white">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-gray-400">Gói 12 Tháng:</label>
+                            <input type="number" id="cfgPrice12" value="390000" class="w-full px-2.5 py-1.5 rounded-lg glass-panel border border-white/15 text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Link Zalo Support:</label>
+                    <input type="text" id="cfgZalo" value="https://zalo.me" class="w-full px-3 py-2 rounded-xl glass-panel border border-white/15 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div class="pt-3 flex gap-3">
+                    <button type="button" onclick="resetConfigDefaults()" class="w-1/3 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 font-bold transition-all">
+                        Mặc Định
+                    </button>
+                    <button type="submit" class="w-2/3 py-2.5 rounded-xl bg-gradient-to-r from-gold to-yellow-600 text-black font-extrabold shadow-lg shadow-gold/20 hover:opacity-90 transition-all">
+                        LƯU CẤU HÌNH
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Movie Preview Detail Modal -->
+    <div id="movieModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="glass-card max-w-lg w-full rounded-3xl border border-netflix-red/40 overflow-hidden relative transition-all duration-300 modal-content-enter">
+            
+            <button onclick="closeMoviePreview()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full glass-panel border border-white/20 flex items-center justify-center text-gray-300 hover:text-white hover:bg-netflix-red transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="relative aspect-video">
+                <img id="movieModalImg" src="" alt="Movie Cover" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d12] via-transparent to-transparent"></div>
+            </div>
+
+            <div class="p-6">
+                <div class="flex items-center gap-2 mb-2">
+                    <span id="movieModalBadge" class="bg-netflix-red text-white text-[10px] font-bold px-2 py-0.5 rounded">4K Ultra HD</span>
+                    <span class="text-gold font-bold text-xs"><i class="fa-solid fa-star"></i> <span id="movieModalRating">9.8</span></span>
+                </div>
+                <h3 id="movieModalTitle" class="text-2xl font-extrabold text-white mb-2">Movie Title</h3>
+                <p id="movieModalDesc" class="text-xs text-gray-300 leading-relaxed mb-6">Synopsis text here...</p>
+
+                <button onclick="closeMoviePreview(); scrollToPricing();" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-netflix-red to-netflix-darkRed text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-netflix-red/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> ĐĂNG KÝ XEM PHIM NÀY NGAY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Proof Live Toast Popup -->
+    <div id="socialToast" class="fixed bottom-6 left-6 z-40 max-w-xs sm:max-w-sm glass-card p-3.5 rounded-2xl border border-netflix-red/40 shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="w-10 h-10 rounded-full bg-netflix-red/20 border border-netflix-red/50 flex-shrink-0 flex items-center justify-center text-netflix-red font-bold text-lg">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div class="text-xs">
+            <p id="socialText" class="text-white font-medium">Anh Tuấn (Hà Nội) vừa mua <strong class="text-gold">Gói 6 Tháng</strong></p>
+            <span id="socialTime" class="text-[10px] text-gray-400">12 giây trước • Đã xác nhận VietQR</span>
+        </div>
+    </div>
+
+    <!-- Notification Feedback Toast -->
+    <div id="toast" class="fixed top-6 right-6 z-50 glass-card px-4 py-3 rounded-2xl border border-green-500/50 text-white text-xs font-semibold flex items-center gap-2 shadow-2xl transform translate-x-32 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-green-400 text-base"></i>
+        <span id="toastMsg">Thao tác thành công!</span>
+    </div>
+
+    <script>
+        // Default System Config Data
+        const defaultConfig = {
+            bankId: 'MB',
+            accNo: '0876773180',
+            accName: 'HOANG NGUYEN KA THY',
+            zalo: 'https://zalo.me',
+            tele: 'https://t.me',
+            prices: {
+                1: 45000,
+                3: 120000,
+                6: 220000,
+                12: 390000
+            }
+        };
+
+        let appConfig = { ...defaultConfig };
+
+        // Load Saved Configuration from localStorage
+        function loadConfig() {
+            try {
+                const saved = localStorage.getItem('thyk_net_netflix_cfg');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    appConfig = { 
+                        ...defaultConfig, 
+                        ...parsed, 
+                        prices: { ...defaultConfig.prices, ...(parsed.prices || {}) } 
+                    };
+                }
+            } catch (e) {
+                console.error('Error loading config:', e);
+            }
+            applyConfig();
+        }
+
+        function applyConfig() {
+            document.getElementById('cfgBankId').value = appConfig.bankId;
+            document.getElementById('cfgAccNo').value = appConfig.accNo;
+            document.getElementById('cfgAccName').value = appConfig.accName;
+            document.getElementById('cfgZalo').value = appConfig.zalo;
+
+            document.getElementById('cfgPrice1').value = appConfig.prices[1];
+            document.getElementById('cfgPrice3').value = appConfig.prices[3];
+            document.getElementById('cfgPrice6').value = appConfig.prices[6];
+            document.getElementById('cfgPrice12').value = appConfig.prices[12];
+
+            // Render updated UI prices
+            document.getElementById('priceDisplay1').innerText = Number(appConfig.prices[1]).toLocaleString('vi-VN');
+            document.getElementById('priceDisplay3').innerText = Number(appConfig.prices[3]).toLocaleString('vi-VN');
+            document.getElementById('priceDisplay6').innerText = Number(appConfig.prices[6]).toLocaleString('vi-VN');
+            document.getElementById('priceDisplay12').innerText = Number(appConfig.prices[12]).toLocaleString('vi-VN');
+
+            // Update External Support Links
+            document.getElementById('navZaloBtn').href = appConfig.zalo;
+            document.getElementById('footerZalo').href = appConfig.zalo;
+            document.getElementById('footerTele').href = appConfig.tele;
+        }
+
+        function getPlanPrice(planId, fallback) {
+            return appConfig.prices && appConfig.prices[planId] ? Number(appConfig.prices[planId]) : fallback;
+        }
+
+        function saveConfig(e) {
+            e.preventDefault();
+            appConfig.bankId = document.getElementById('cfgBankId').value.trim() || 'MB';
+            appConfig.accNo = document.getElementById('cfgAccNo').value.trim() || '0876773180';
+            appConfig.accName = document.getElementById('cfgAccName').value.trim() || 'HOANG NGUYEN KA THY';
+            appConfig.zalo = document.getElementById('cfgZalo').value.trim() || 'https://zalo.me';
+
+            appConfig.prices = {
+                1: parseInt(document.getElementById('cfgPrice1').value) || 45000,
+                3: parseInt(document.getElementById('cfgPrice3').value) || 120000,
+                6: parseInt(document.getElementById('cfgPrice6').value) || 220000,
+                12: parseInt(document.getElementById('cfgPrice12').value) || 390000,
+            };
+
+            localStorage.setItem('thyk_net_netflix_cfg', JSON.stringify(appConfig));
+            applyConfig();
+            closeConfigModal();
+            showToast('Đã lưu cấu hình hệ thống thành công!');
+        }
+
+        function resetConfigDefaults() {
+            appConfig = JSON.parse(JSON.stringify(defaultConfig));
+            localStorage.removeItem('thyk_net_netflix_cfg');
+            applyConfig();
+            showToast('Đã khôi phục cấu hình mặc định!');
+        }
+
+        // Dynamic Ember Sparks Particle Engine
+        const canvas = document.getElementById('emberCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function initCanvas() {
+            resizeCanvas();
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 18), 65);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -Math.random() * 0.6 - 0.2, // Rising up
+                    size: Math.random() * 2 + 0.8,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    color: Math.random() > 0.25 ? '#E50914' : '#FFD700'
+                });
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // Update Spotlight Card CSS variables
+            document.querySelectorAll('.spotlight-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.y < -10) {
+                    p.y = canvas.height + 10;
+                    p.x = Math.random() * canvas.width;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Countdown Timer Logic
+        function startCountdown() {
+            let totalSeconds = 4 * 3600 + 38 * 60 + 25;
+            setInterval(() => {
+                if (totalSeconds > 0) totalSeconds--;
+                const h = Math.floor(totalSeconds / 3600);
+                const m = Math.floor((totalSeconds % 3600) / 60);
+                const s = totalSeconds % 60;
+
+                document.getElementById('timerHours').innerText = String(h).padStart(2, '0');
+                document.getElementById('timerMinutes').innerText = String(m).padStart(2, '0');
+                document.getElementById('timerSeconds').innerText = String(s).padStart(2, '0');
+            }, 1000);
+        }
+
+        // VietQR Payment Modal Logic
+        let currentPackage = { name: '', price: 0 };
+        let paymentTimerInterval = null;
+
+        function openPaymentModal(pkgName, price, label) {
+            currentPackage = { name: pkgName, price: price };
+            
+            document.getElementById('modalPackageName').innerText = `${label} - ${price.toLocaleString('vi-VN')}đ`;
+            document.getElementById('qrBankName').innerText = appConfig.bankId;
+            document.getElementById('qrAccNo').innerText = appConfig.accNo;
+            document.getElementById('qrAccName').innerText = appConfig.accName;
+            document.getElementById('qrAmount').innerText = `${price.toLocaleString('vi-VN')}đ`;
+            document.getElementById('qrAmountRaw').innerText = price;
+
+            updateVietQR();
+            startPaymentTimer();
+
+            const modal = document.getElementById('paymentModal');
+            modal.classList.remove('modal-enter');
+            modal.classList.add('modal-active');
+            modal.firstElementChild.classList.remove('modal-content-enter');
+            modal.firstElementChild.classList.add('modal-content-active');
+        }
+
+        function startPaymentTimer() {
+            clearInterval(paymentTimerInterval);
+            let time = 600; // 10 minutes
+            const display = document.getElementById('qrTimer');
+            
+            paymentTimerInterval = setInterval(() => {
+                const m = Math.floor(time / 60);
+                const s = time % 60;
+                display.innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+                if (--time < 0) {
+                    clearInterval(paymentTimerInterval);
+                    display.innerText = "Hết hạn";
+                }
+            }, 1000);
+        }
+
+        function updateVietQR() {
+            const phone = document.getElementById('custPhone').value.trim() || '0876773180';
+            const memo = `THYK ${currentPackage.name.split(' ')[0]} ${phone}`.replace(/\s+/g, ' ').toUpperCase();
+            
+            document.getElementById('qrMemo').innerText = memo;
+
+            // Generate official VietQR image URL
+            const qrUrl = `https://img.vietqr.io/image/${appConfig.bankId}-${appConfig.accNo}-compact2.png?amount=${currentPackage.price}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent(appConfig.accName)}`;
+            
+            document.getElementById('vietQrImg').src = qrUrl;
+        }
+
+        document.getElementById('custPhone').addEventListener('input', updateVietQR);
+
+        function closePaymentModal() {
+            clearInterval(paymentTimerInterval);
+            const modal = document.getElementById('paymentModal');
+            modal.classList.remove('modal-active');
+            modal.classList.add('modal-enter');
+            modal.firstElementChild.classList.remove('modal-content-active');
+            modal.firstElementChild.classList.add('modal-content-enter');
+        }
+
+        function confirmPaymentAction() {
+            closePaymentModal();
+            showToast('Cảm ơn bạn! Đơn hàng đã ghi nhận, nhân viên Thyk.net sẽ kiểm tra và kích hoạt ngay.');
+        }
+
+        // Admin Config Modal Triggers
+        document.getElementById('openConfigBtn').addEventListener('click', () => {
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('modal-enter');
+            modal.classList.add('modal-active');
+            modal.firstElementChild.classList.remove('modal-content-enter');
+            modal.firstElementChild.classList.add('modal-content-active');
+        });
+
+        function closeConfigModal() {
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('modal-active');
+            modal.classList.add('modal-enter');
+            modal.firstElementChild.classList.remove('modal-content-active');
+            modal.firstElementChild.classList.add('modal-content-enter');
+        }
+
+        // Movie Preview Modal
+        function openMoviePreview(title, cat, rating, img, desc) {
+            document.getElementById('movieModalTitle').innerText = title;
+            document.getElementById('movieModalRating').innerText = rating;
+            document.getElementById('movieModalImg').src = img;
+            document.getElementById('movieModalDesc').innerText = desc;
+
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('modal-enter');
+            modal.classList.add('modal-active');
+            modal.firstElementChild.classList.remove('modal-content-enter');
+            modal.firstElementChild.classList.add('modal-content-active');
+        }
+
+        function closeMoviePreview() {
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('modal-active');
+            modal.classList.add('modal-enter');
+            modal.firstElementChild.classList.remove('modal-content-active');
+            modal.firstElementChild.classList.add('modal-content-enter');
+        }
+
+        // Category Filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.movie-tab').forEach(b => {
+                b.className = 'movie-tab px-4 py-2 rounded-xl text-xs font-bold glass-panel text-gray-300 hover:text-white whitespace-nowrap transition-all';
+            });
+            btn.className = 'movie-tab px-4 py-2 rounded-xl text-xs font-bold bg-netflix-red text-white whitespace-nowrap transition-all';
+
+            const items = document.querySelectorAll('.movie-item');
+            items.forEach(item => {
+                if (cat === 'all' || item.getAttribute('data-category') === cat) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function filterMovies() {
+            const query = document.getElementById('movieSearch').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.movie-item');
+            items.forEach(item => {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = '0px');
+                document.querySelectorAll('#faq button i').forEach(i => i.style.transform = 'rotate(0deg)');
+                
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function scrollToPricing() {
+            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-x-32', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-x-32', 'opacity-0');
+            }, 3000);
+        }
+
+        function copyText(elementId) {
+            const txt = document.getElementById(elementId).innerText;
+            const temp = document.createElement('textarea');
+            temp.value = txt;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(`Đã sao chép: "${txt}"`);
+        }
+
+        // Live Social Proof Notification Generator
+        const users = ['Anh Minh (Đà Nẵng)', 'Chị Thu (TP.HCM)', 'Anh Hoàng (Hà Nội)', 'Chị Vy (Hải Phòng)', 'Anh Tuấn (Cần Thơ)'];
+        const pkgs = ['Gói 3 Tháng', 'Gói 6 Tháng (+1T Gift)', 'Gói VIP 12 Tháng'];
+
+        function triggerSocialProof() {
+            const user = users[Math.floor(Math.random() * users.length)];
+            const pkg = pkgs[Math.floor(Math.random() * pkgs.length)];
+            const secs = Math.floor(Math.random() * 25) + 5;
+
+            document.getElementById('socialText').innerHTML = `${user} vừa mua <strong class="text-gold">${pkg}</strong>`;
+            document.getElementById('socialTime').innerText = `${secs} giây trước • Đã thanh toán VietQR`;
+
+            const toast = document.getElementById('socialToast');
+            toast.classList.remove('translate-y-24', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 5000);
+        }
+
+        setInterval(triggerSocialProof, 13000);
+
+        window.onload = function () {
+            loadConfig();
+            initCanvas();
+            animateCanvas();
+            startCountdown();
+            setTimeout(triggerSocialProof, 3500);
+        };
+    </script>
+</body>
+</html>
